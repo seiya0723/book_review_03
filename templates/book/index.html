@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>書評記録サイト</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+</head>
+<body>
+
+<h1 class="text-white bg-primary">書評記録サイト</h1>
+
+<main class="container">
+
+    <button id="view_change" class="btn btn-outline-success">表示切り替え</button>
+
+    <div class="row">
+        {% for book in books %}
+        <div class="col-4 border book_content">
+            <div>{{ book.title }}</div>
+            <div>{{ book.author }}</div>
+            <div>{{ book.published }}</div>
+            <div class="text-center">
+                <img src="{{ book.thumbnail }}" alt="">
+            </div>
+            <div>{{ book.description }}</div>
+            <a class="btn btn-outline-primary" href="{{ book.info }}">詳細</a>
+            <a class="btn btn-outline-success" href="{% url 'book:single' book.id %}">詳細</a>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<script>
+    $("#view_change").on("click", function(){ change(); });
+
+    function change(){
+
+        if ( $(".book_content").hasClass("col-4") ){
+
+            $(".book_content").removeClass("col-4");
+            $(".book_content").addClass("col-12");
+
+        }
+        else{
+
+            $(".book_content").removeClass("col-12");
+            $(".book_content").addClass("col-4");
+        }
+    }
+
+</script>
+
+</body>
+</html>
